@@ -30,7 +30,7 @@ This workflow should run on BlueHive.
  **1. Ray Parameter File**. 
  Prepare a text file contaning all the ray parameters you want to pass to the program, and save it to `rayp/`. An example is provided: `rayp/linspace.txt`.  
  
- **2. Edit Scripts**. 
+ **2. Edit Scripts**.  
 	 - **`telewavesim_workflow.m`**	 
 	 Edits should only be made in the `Parameters Setup` section.  
 	 `workDir`: change to your work directory, i.e., the location of this package;  
