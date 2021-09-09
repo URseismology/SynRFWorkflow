@@ -35,6 +35,7 @@ This workflow should run on BlueHive.
 	 Edits should only be made in the `Parameters Setup` section.  
 	 `workDir`: change to your work directory, i.e., the location of this package;  
 	 `modname`: the model name, which will be included in the name of the velocity model and the output MatLab structure;  
+	   \
 	 *model parameters (in each layer)*:  
 	 `Dz`: thickness in km;  
 	 `rho`: density in kg/m3;  
