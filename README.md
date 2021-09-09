@@ -5,20 +5,20 @@
 This workflow reads in the ***velocity structures*** and ***ray parameters***, and outputs the synthetic receiver function (RF) traces. The synthetic RFs are calculated using Telewavesim (Audet, 2016).
 
 ### Contents
- - The workflow includes the following ***scripts***:
-`telewavesim_workflow.m`: the main code;
-`get_rayP.m`: calculate ray parameters from real seismic data;
-`genRFsyn.m`: read in the velocity structure and store in MatLab variable;
-`matmod2txt_noprem.m`: write velocity structure to text file;
-`sac2strucwrap.m`: read in the output sac files from telewavesim and save them into MatLab structures;
-`raypToEpiDist.m`: convert ray parameters to epicentral distances (or the other way around);
-`job_Telewavesim.sh`: bash script to run Telewavesim program on BlueHive;
-`run_telewavesim.py`: python script of Telewavesim program.
-- There are four (4) ***folders*** in the package:
-`model/`: velocity model files generated in the workflow;
-`rayP/`: ray parameter files you provide;
-`sac/`: sac files of RF traces generated from Telewavesim;
-`matfile/`: final output of MatLab structures.
+ - The workflow includes the following ***scripts***:  
+`telewavesim_workflow.m`: the main code;  
+`get_rayP.m`: calculate ray parameters from real seismic data;  
+`genRFsyn.m`: read in the velocity structure and store in MatLab variable;  
+`matmod2txt_noprem.m`: write velocity structure to text file;  
+`sac2strucwrap.m`: read in the output sac files from telewavesim and save them into MatLab structures;  
+`raypToEpiDist.m`: convert ray parameters to epicentral distances (or the other way around);  
+`job_Telewavesim.sh`: bash script to run Telewavesim program on BlueHive;  
+`run_telewavesim.py`: python script of Telewavesim program.  
+- There are four (4) ***folders*** in the package:  
+`model/`: velocity model files generated in the workflow;  
+`rayP/`: ray parameter files you provide;  
+`sac/`: sac files of RF traces generated from Telewavesim;  
+`matfile/`: final output of MatLab structures.  
 
 ### Usage
 For this workflow to run, you will need to provide a text file containing the ray paramemters, edit the following scripts
