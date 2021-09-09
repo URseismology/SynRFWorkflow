@@ -52,7 +52,7 @@ This workflow should run on BlueHive.
          `ss=np.loadtxt('/directory/rayP/linspace.txt')`
 	change to your ray parameter file;  
 	`modname = 'sac/sim' # change here`
-	normally no need to change; however, you may change it to the full directory for robustness.  
+	 change to `sac/your_model_name`; you may also change it to the full directory for robustness.  
 
 **3. Run the Main Code**.  
 Run `telewavesim_workflow.m`, all at once, or section by section.  
