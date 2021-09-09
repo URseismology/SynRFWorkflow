@@ -27,9 +27,9 @@ and run the main code
 `telewavesim_workflow.m`.
 This workflow should run on BlueHive.
 
- **1. Ray Parameter File**
- Prepare a text file contaning all the ray parameters you want to pass to the program, and save it to `rayp/`. An example is provided: `rayp/linspace.txt`.
- **2. Edit Scripts**
+ **1. Ray Parameter File**. 
+ Prepare a text file contaning all the ray parameters you want to pass to the program, and save it to `rayp/`. An example is provided: `rayp/linspace.txt`.  
+ **2. Edit Scripts**. 
 	 - **`telewavesim_workflow.m`**	 
 	 Edits should only be made in the `Parameters Setup` section.  
 	 `workDir`: change to your work directory, i.e., the location of this package;  
@@ -50,6 +50,6 @@ change to your ray parameter file;
 `modname = 'sac/sim' # change here`
 normally no need to change; however, you may change it to the full directory for robustness.  
 
-**3. Run the Main Code**
+**3. Run the Main Code**. 
 Run `telewavesim_workflow.m`, all at once, or section by section.  
 After you finish, you should see MatLab structures saved in `matfile/` folder. The output structure contains the following fields: `rRF` (radial), `tRF` (transverse), `time`, `npts` (number of sample points), `srate` (sample rate), `bgntime`, `endtime`, `garc` (epicentral distance).
