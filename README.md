@@ -48,7 +48,7 @@ This workflow should run on BlueHive.
 	   \
 	 **`run_telewavesim.py`**  
 	 Go to the end of this script.  
-	 `# specify slowness/rayp file`. 
+	 `# specify slowness/rayp file`  
          `ss=np.loadtxt('/directory/rayP/linspace.txt')`
 	change to your ray parameter file;  
 	`modname = 'sac/sim' # change here`
