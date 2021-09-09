@@ -31,7 +31,7 @@ This workflow should run on BlueHive.
  Prepare a text file contaning all the ray parameters you want to pass to the program, and save it to `rayp/`. An example is provided: `rayp/linspace.txt`.  
  
  **2. Edit Scripts**.  
-	 - **`telewavesim_workflow.m`**	  
+	 **`telewavesim_workflow.m`**	  
 	 Edits should only be made in the `Parameters Setup` section.  
 	 `workDir`: change to your work directory, i.e., the location of this package;  
 	 `modname`: the model name, which will be included in the name of the velocity model and the output MatLab structure;  
@@ -40,10 +40,10 @@ This workflow should run on BlueHive.
 	 `rho`: density in kg/m3;  
 	 `Vp` and `Vs`: P and S velocity in km/s.  
 	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.  
-	 - **`job_Telewavesim.sh`**  
+	 **`job_Telewavesim.sh`**  
 	 `#SBATCH --mail-user="email_address"`: change to your email address;  
 	 `python /directory/run_telewavesim.py $SLURM_ARRAY_TASK_ID`: change according to the directory where this package is located.  
-	 - **`run_telewavesim.py`**  
+	 **`run_telewavesim.py`**  
 	 Go to the end of this script.  
 	 `# specify slowness/rayp file`
          `ss=np.loadtxt('/directory/rayP/linspace.txt')`
@@ -51,6 +51,6 @@ This workflow should run on BlueHive.
 	`modname = 'sac/sim' # change here`
 	normally no need to change; however, you may change it to the full directory for robustness.  
 
-**3. Run the Main Code**. 
+**3. Run the Main Code**.  
 Run `telewavesim_workflow.m`, all at once, or section by section.  
 After you finish, you should see MatLab structures saved in `matfile/` folder. The output structure contains the following fields: `rRF` (radial), `tRF` (transverse), `time`, `npts` (number of sample points), `srate` (sample rate), `bgntime`, `endtime`, `garc` (epicentral distance).
