@@ -40,10 +40,12 @@ This workflow should run on BlueHive.
 	 `Dz`: thickness in km;  
 	 `rho`: density in kg/m3;  
 	 `Vp` and `Vs`: P and S velocity in km/s.  
-	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.  
+	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.   
+	   \
 	 **`job_Telewavesim.sh`**  
 	 `#SBATCH --mail-user="email_address"`: change to your email address;  
 	 `python /directory/run_telewavesim.py $SLURM_ARRAY_TASK_ID`: change according to the directory where this package is located.  
+	   \
 	 **`run_telewavesim.py`**  
 	 Go to the end of this script.  
 	 `# specify slowness/rayp file`
