@@ -1,6 +1,6 @@
 ## Synthetic RF (Telewavesim) Workflow
 *Evan Zhang
-9/9/2021*
+10/6/2021*
 ### Overview
 This workflow reads in the ***velocity structures*** and ***ray parameters***, and outputs the synthetic receiver function (RF) traces. The synthetic RFs are calculated using Telewavesim (Audet, 2016).
 
@@ -21,10 +21,9 @@ This workflow reads in the ***velocity structures*** and ***ray parameters***, a
 `matfile/`: final output of MatLab structures.  
 
 ### Usage
-For this workflow to run, you will need to provide a text file containing the ray paramemters, edit the following scripts
-`telewavesim_workflow.m`, `job_Telewavesim.sh`, `run_telewavesim.py`,
-and run the main code
+For this workflow to run, you will need to provide a text file containing the ray paramemters, edit and run the main code
 `telewavesim_workflow.m`.
+
 This workflow should run on BlueHive.
 
  **1. Ray Parameter File**.  
@@ -41,19 +40,11 @@ This workflow should run on BlueHive.
 	 `rho`: density in kg/m3;  
 	 `Vp` and `Vs`: P and S velocity in km/s.  
 	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.   
-	   \
-	 **`job_Telewavesim.sh`**  
-	 `#SBATCH --mail-user="email_address"`: change to your email address;  
-	 `python /directory/run_telewavesim.py $SLURM_ARRAY_TASK_ID`: change according to the directory where this package is located.  
-	   \
-	 **`run_telewavesim.py`**  
-	 Go to the end of this script.  
-	 `# specify slowness/rayp file`  
-         `ss=np.loadtxt('/directory/rayP/linspace.txt')`
-	change to your ray parameter file;  
-	`modname = 'sac/sim' # change here`
-	 change to `sac/your_model_name`; you may also change it to the full directory for robustness.  
-
+	 *other options*:
+	 `DelSac`: 0 if you wish to keep the sac files, 1 if you wish to delete them.
+	 `npts`, `loco` and `hico`: sample points, lower and higher corner frequency of synthetic RFs.
+	 
 **3. Run the Main Code**.  
 Run `telewavesim_workflow.m`, all at once, or section by section.  
 After you finish, you should see MatLab structures saved in `matfile/` folder. The output structure contains the following fields: `rRF` (radial), `tRF` (transverse), `time`, `npts` (number of sample points), `srate` (sample rate), `bgntime`, `endtime`, `garc` (epicentral distance).
+You will also see a plot showing all the synthetic RF traces against epicentral distance, with predicted arrival times for Ps conversions and their multiples.
