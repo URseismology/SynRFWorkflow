@@ -22,5 +22,7 @@ model.Trend = Trend ;
 model.Plunge = Plunge;
 matmod2txt_noprem(model, modelDir, modname)
 
+fprintf('model created: %s\n',modname);
+
 end
 

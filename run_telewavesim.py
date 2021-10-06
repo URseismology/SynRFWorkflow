@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from numpy.fft import fft, fftshift, ifft
 from obspy.signal.rotate import rotate_ne_rt
@@ -144,59 +145,63 @@ def rotate_zrt_pvh(trZ, trR, trT, slow, vp=6., vs=3.5):
 
     return trP, trV, trH
     
-# specify model file
-#modfile = '/scratch/tolugboj_lab/Prj2_SEUS_RF/4_Bin/6_SYNTEST/TELEWAVEISM/SEUS_ModZ.txt'
-modfile = '/scratch/tolugboj_lab/Prj4_Nomelt/seus_test/evan/model/sim.txt'
+def fun_telewavesim(workdir,model,raypfile,npts,loco,hico):
+    # specify model file
+    modfile = workdir+'model/'+modname+'.txt'
+    wvtype = 'P'
+    dt = 0.02 # Sample distance in seconds
 
-wvtype = 'P'
+    # specify slowness/rayp file
+    ss = np.loadtxt(workdir+'rayP/'+raypfile)
+    # or give slowness/rayp here
+    #ss = np.arange(0.04, 0.08, 0.002)
 
-npts = 5000 # Number of samples
-dt = 0.02 # Sample distance in seconds
+    baz = 0. # has no influence if model is isotropic
 
-# specify slowness/rayp file
-ss = np.loadtxt('/scratch/tolugboj_lab/Prj4_Nomelt/seus_test/evan/rayP/linspace.txt')
-# or give slowness/rayp here
-#ss = np.arange(0.04, 0.08, 0.002)
+    model = ut.read_model(modfile)
 
-baz = 0. # has no influence if model is isotropic
+    trR = Stream(); trT = Stream()
 
-model = ut.read_model(modfile)
+    t1 = ut.calc_ttime(model, 0.06, wvtype=wvtype)
+    print('Predicted propagation time from model (slow = 0.06): {0:4.1f} sec'.format(t1))
 
-trR = Stream(); trT = Stream()
+    # Loop over range of data
+    for slow in ss:
+        # Calculate the plane waves seismograms    
+        trxyz = ut.run_plane(model, slow, npts, dt,baz=baz, wvtype=wvtype)
+        
+        # Then the transfer functions in Z-R-T coordinate system
+        tfs = ut.tf_from_xyz(trxyz, pvh=False)
+        
+        # Or in P-V-H, which requires surface velocities for rotation
+        #tfs = tf_from_xyz(trxyz,slow, pvh=True, vp=6.70, vs=3.76) # for YY model
+        #tfs = tf_from_xyz(trxyz,slow, pvh=True, vp=6.22, vs=3.57) # for ZZ model
 
-t1 = ut.calc_ttime(model, 0.06, wvtype=wvtype)
-print('Predicted propagation time from model (slow = 0.06): {0:4.1f} sec'.format(t1))
+        # Append to streams
+        trR.append(tfs[0]); trT.append(tfs[1])
 
-# Loop over range of data
-for slow in ss:
-    # Calculate the plane waves seismograms    
-    trxyz = ut.run_plane(model, slow, npts, dt,baz=baz, wvtype=wvtype)
-    
-    # Then the transfer functions in Z-R-T coordinate system
-    tfs = ut.tf_from_xyz(trxyz, pvh=False)
-    
-    # Or in P-V-H, which requires surface velocities for rotation
-    #tfs = tf_from_xyz(trxyz,slow, pvh=True, vp=6.70, vs=3.76) # for YY model
-    #tfs = tf_from_xyz(trxyz,slow, pvh=True, vp=6.22, vs=3.57) # for ZZ model
+    # Set frequency corners in Hz
+    f1 = loco
+    f2 = hico
 
-    # Append to streams
-    trR.append(tfs[0]); trT.append(tfs[1])
+    # Filter plane waves seismograms
+    trR.filter('bandpass',freqmin=f1, freqmax=f2, corners=2, zerophase=True)
+    trT.filter('bandpass',freqmin=f1, freqmax=f2, corners=2, zerophase=True)
 
-# Set frequency corners in Hz
-f1 = 0.01
-f2 = 2.00
+    # Stack over all traces
+    trR_stack, trT_stack = ut.stack_all(trR, trT, pws=True)
 
-# Filter plane waves seismograms
-trR.filter('bandpass',freqmin=f1, freqmax=f2, corners=2, zerophase=True)
-trT.filter('bandpass',freqmin=f1, freqmax=f2, corners=2, zerophase=True)
+    # Save RFs
+    modnamefull = workdir+'sac/'+modname # change here
 
-# Stack over all traces
-trR_stack, trT_stack = ut.stack_all(trR, trT, pws=True)
+    # Save seismograms
+    trR.write(modnamefull+".R.sac",format="SAC")
+    trT.write(modnamefull+".T.sac",format="SAC")
 
-# Save RFs
-#modname = 'RF_ModY/SEUS_ModY_PSV'
-modname = 'sac/sim' # change here
-
-# Save seismograms
-trR.write(modname+".R.sac",format="SAC")
-trT.write(modname+".T.sac",format="SAC")
+workdir = sys.argv[1]
+modname = sys.argv[2]
+raypfile = sys.argv[3]
+npts = int(sys.argv[4])
+loco = float(sys.argv[5])
+hico = float(sys.argv[6])
+fun_telewavesim(workdir,modname,raypfile,npts,loco,hico)

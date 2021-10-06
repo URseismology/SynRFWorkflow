@@ -18,5 +18,5 @@ conda activate urseismo
 moduleID=$SLURM_ARRAY_TASK_ID
 echo "running $moduleID on $(hostname).."
 
-python /scratch/tolugboj_lab/Prj4_Nomelt/seus_test/evan/run_telewavesim.py $SLURM_ARRAY_TASK_ID
+python /scratch/tolugboj_lab/Prj4_Nomelt/seus_test/evan/run_telewavesim.py $1 $2 $3 $4 $5 $6 $SLURM_ARRAY_TASK_ID
 
