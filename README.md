@@ -39,9 +39,9 @@ This workflow should run on BlueHive.
 	 `Dz`: thickness in km;  
 	 `rho`: density in kg/m3;  
 	 `Vp` and `Vs`: P and S velocity in km/s.  
-	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.   
-	 *other options*:
-	 `DelSac`: 0 if you wish to keep the sac files, 1 if you wish to delete them.
+	 `Vperc`, `Trend`, and `Plunge` are anisotropy parameters; leave them 0.0 for isotropic case.   \
+	 *other options*:\
+	 `DelSac`: 0 if you wish to keep the sac files, 1 if you wish to delete them.\
 	 `npts`, `loco` and `hico`: sample points, lower and higher corner frequency of synthetic RFs.
 	 
 **3. Run the Main Code**.  
